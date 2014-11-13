@@ -6,7 +6,6 @@ $(document).ready(function(){
             dataType: "jsonp"
         })
             .done(function( data ) {
-                console.log(data[1]);
                 var searchKeyWord = 'Your searching word is: ' + data[1][0];
                 $('#search-res').append(searchKeyWord);
                 $(data[1]).slice(1).each(function(key1, val1) {
