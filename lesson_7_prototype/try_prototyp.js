@@ -9,10 +9,7 @@ $.fn.hasAttr = function(attrName){
         names.push(this[0].attributes[i].name);
     }
 
-    if (names.indexOf(attrName) > -1) {
-       return true;
-    } else {
-        return false;
-    }
+    var result = (names.indexOf(attrName) > -1) ? true : false;
 
+    return result;
 };
