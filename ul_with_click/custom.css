@@ -46,6 +46,3 @@ a:hover                        { text-decoration:none; }
     color: #fff;
     background: red;
 }
-.wrapper ul li:last-child a {
-    margin-left: 0;
-}
