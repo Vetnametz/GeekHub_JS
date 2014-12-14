@@ -15,11 +15,12 @@ jQuery(function ($) {
     var Friend = Backbone.Model.extend({
 
         initialize: function () {
-            console.log('Friend model is involved and one friend is created ...');
+            console.log('Friend model is involved and friends is created ...');
         }
 
     });
 
+    // Create Friends Collection
     var FriendsCollection = Backbone.Collection.extend({
 
         model: Friend,
@@ -31,12 +32,12 @@ jQuery(function ($) {
         },
 
         newComer : function (model) {
-            alert('welcome ' + model.get('name'));
+            console.log('Welcome ' + model.get('name'));
             friendView.render();
         },
 
         removeFriend : function (model) {
-            alert('Go away ' + model.get('name'));
+            console.log('Go away ' + model.get('name'));
             console.log(model.get('name'));
             var needRemove = model.get('name');
             console.log(friends.length);
@@ -54,12 +55,13 @@ jQuery(function ($) {
         }
 
     });
+    var friandcollection = new FriendsCollection(friends);
 
+    // Create Friends View
     var FriendView = Backbone.View.extend({
 
         el: $('#friends'),
 
-        //we listen for clicks on items
         events: {
             "click .remove-this": "removeOneFriend",
             "click li": "addClassMarked"
@@ -67,13 +69,12 @@ jQuery(function ($) {
 
         initialize: function () {
             console.log('Friend view is involved and all friends is rendered ...');
-            this.collection = new FriendsCollection(friends);
+            this.render();
         },
 
         render: function () {
-            //if you put this code inside a view, the view will now listening to its model change event
-            this.listenTo(this.collection, 'change', alert('Collection FriendsCollection changed ...'));
-            _.each(this.collection.models, function (item) {
+            $('#friends li').remove();
+            _.each(friandcollection.models, function (item) {
                 var html = "<li><label></label><input value='" + item.get('name') + "' type='text'/><span>email: " + item.get('email') + "</span><a class='remove-this' href='#'>Удалить</a></li>";
                 $('#friends').append(html);
             }, this);
@@ -87,9 +88,7 @@ jQuery(function ($) {
             //TODO refact this
             //remove friend from collection
             var getInputVal = $(event.currentTarget).parent().find('input').val();
-            this.collection.remove(this.collection.getByName(getInputVal));
-            //remove friend from DOM
-            //$(event.currentTarget).parent().remove();
+            friandcollection.remove(friandcollection.getByName(getInputVal));
             return false;
         }
         
@@ -105,14 +104,10 @@ jQuery(function ($) {
             "click #add-new": "addFriend"
         },
 
-        initialize: function () {
-            this.collection = friendView.collection;
-        },
-
         addFriend: function () {
-            friendView.collection.add([
-                {name: "Flying Dutchman", age: '23'},
-                {name: "Black Pearl", age: '31'}
+            console.log('ControlPanel is involved ... ');
+            friandcollection.add([
+                { name: "Frenk Palmer", address: "1, a street, a town, a city, AB12 3CD", tel: "0123456789", email: "anemail@me.com" }
             ]);
         },
 
@@ -120,6 +115,7 @@ jQuery(function ($) {
         /*Need to remove all friends that was marked
         BUT HOW get here access collection from view FriendView*/
         removeAllFriends: function () {
+            //friandcollection.remove();
             $(event.currentTarget).siblings('#friends').find('li').find('input.marked').parent().remove();
         }
 
