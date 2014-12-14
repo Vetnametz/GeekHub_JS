@@ -27,10 +27,10 @@ jQuery(function ($) {
 
         initialize: function () {
             //when some property in this object has changed, run this.newComer() function
-            this.on('add',this.newComer,this);
-            this.on('remove',this.removeFriend,this);
+            
         },
 
+<<<<<<< HEAD
         newComer : function (model) {
             console.log('Welcome ' + model.get('name'));
             friendView.render();
@@ -47,6 +47,9 @@ jQuery(function ($) {
             console.log(friends.length);
             friendView.render();
         },
+=======
+        
+>>>>>>> FETCH_HEAD
 
         getByName: function(name){
             return this.filter(function(val) {
@@ -60,7 +63,7 @@ jQuery(function ($) {
     // Create Friends View
     var FriendView = Backbone.View.extend({
 
-        el: $('#friends'),
+        el: '#friends',
 
         events: {
             "click .remove-this": "removeOneFriend",
@@ -69,15 +72,36 @@ jQuery(function ($) {
 
         initialize: function () {
             console.log('Friend view is involved and all friends is rendered ...');
+<<<<<<< HEAD
+=======
+            
+            this.collection.on('add', this.newComer);
+            this.collection.on('remove', this.removeFriend);
+        },
+        
+        newComer : function (model) {
+            this.render();
+        },
+
+        removeFriend : function (model) {
+            var needRemove = model.get('name');
+            friends = _.reject(friends, function(el) {
+                return el.name === needRemove;
+            });
+>>>>>>> FETCH_HEAD
             this.render();
         },
 
         render: function () {
+<<<<<<< HEAD
             $('#friends li').remove();
             _.each(friandcollection.models, function (item) {
+=======
+            this.collection.each(function (item) {
+>>>>>>> FETCH_HEAD
                 var html = "<li><label></label><input value='" + item.get('name') + "' type='text'/><span>email: " + item.get('email') + "</span><a class='remove-this' href='#'>Удалить</a></li>";
-                $('#friends').append(html);
-            }, this);
+                this.$el.append(html);
+            });
         },
 
         addClassMarked: function () {
@@ -88,7 +112,12 @@ jQuery(function ($) {
             //TODO refact this
             //remove friend from collection
             var getInputVal = $(event.currentTarget).parent().find('input').val();
+<<<<<<< HEAD
             friandcollection.remove(friandcollection.getByName(getInputVal));
+=======
+            this.collection.remove(this.collection.getByName(getInputVal));
+
+>>>>>>> FETCH_HEAD
             return false;
         }
         
@@ -97,7 +126,7 @@ jQuery(function ($) {
 
     var ControlPanel = Backbone.View.extend({
 
-        el: $('#control'),
+        el: '#control',
 
         events: {
             "click #remove-all": "removeAllFriends",
@@ -105,18 +134,23 @@ jQuery(function ($) {
         },
 
         addFriend: function () {
+<<<<<<< HEAD
             console.log('ControlPanel is involved ... ');
             friandcollection.add([
                 { name: "Frenk Palmer", address: "1, a street, a town, a city, AB12 3CD", tel: "0123456789", email: "anemail@me.com" }
             ]);
+=======
+            this.collection.add({name: "Flying Dutchman", age: 23});
+>>>>>>> FETCH_HEAD
         },
 
-        //TODO make something with this SHIT
-        /*Need to remove all friends that was marked
-        BUT HOW get here access collection from view FriendView*/
         removeAllFriends: function () {
+<<<<<<< HEAD
             //friandcollection.remove();
             $(event.currentTarget).siblings('#friends').find('li').find('input.marked').parent().remove();
+=======
+            this.$('.marked').closest('li').remove();
+>>>>>>> FETCH_HEAD
         }
 
     });
