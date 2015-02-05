@@ -29,60 +29,10 @@ requirejs.config({
     //'bootstrap/bootstrap-typeahead': { deps: ['jquery'], exports: '$.fn.typeahead'  }
   }
 });
-// Start the main app logic.
-//requirejs(['jquery', 'app/about'],
-//  function   ($, about) {
-    //jQuery, canvas and the app/sub module are all
-    //loaded and can be used here now.
-    //console.log(about);
-  //});
-//requirejs(['jquery'],
-//  function   ($) {
-//    //the app/models/about module are all
-//    //loaded and can be used here now.
-//    $('.navbar-right').click(function (event) {
-//      event.preventDefault();
-//      $('[data-sub-nav-info]').empty();
-//      if ($(event.target).data('chapter') === 'about') {
-//
-//        changeContent (about);
-//      } else if ($(event.target).data('chapter') === 'portfolio') {
-//        requirejs(['app/models/portfolio'],
-//          function   (portfolio) {
-//            //the app/models/portfolio module are all
-//            //loaded and can be used here now.
-//            console.log(portfolio);
-//          });
-//        changeContent (portfolio);
-//      } else if ($(event.target).data('chapter') === 'contacts') {
-//        requirejs(['app/models/contacts'],
-//          function   (contacts) {
-//            //the app/models/contacts module are all
-//            //loaded and can be used here now.
-//            console.log(contacts);
-//          });
-//        changeContent (contacts);
-//      } else if ($(event.target).data('chapter') === 'blog') {
-//        requirejs(['app/models/blog'],
-//          function   (blog) {
-//            //the app/models/blog module are all
-//            //loaded and can be used here now.
-//            console.log(blog);
-//          });
-//        changeContent (blog);
-//      }
-//    });
-//
-//  });
 
 requirejs([
-    'app/models/about',
-    'app/models/portfolio',
-    'app/controllers/about',
-    'app/controllers/portfolio'
+    'app/controllers/about-portfolio'
   ],
-  function   () {
+  function () {
 
   });
-
-
