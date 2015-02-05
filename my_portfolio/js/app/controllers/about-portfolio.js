@@ -4,57 +4,50 @@ define('app/controllers/about-portfolio', [
   "app/models/about",
   "app/models/portfolio"],
   function ($, collapse, modelAbout, modelPortfolio) {
-    console.log(this);
-  $('[data-about]').click(function (event) {
 
-    console.log("controller - models - about/portfolio");
+  $('[data-main-nav]').click(function (event) {
+  
+    if ($(event.target).data().hasOwnProperty('about')) {
+      console.log("controller - model - about");
 
-    $('[data-section]').text(modelAbout.chapter);
+      fiisSectionNav (modelAbout);
+      fillSubNav (modelAbout);
+    } else if ($(event.target).data().hasOwnProperty('portfolio')) {
+      console.log("controller - models - portfolio");
+
+      fiisSectionNav (modelPortfolio);
+      fillSubNav (modelPortfolio);
+    }
+
+  });
+
+  function fiisSectionNav (model) {
+    $('[data-section]').text(model.chapter);
 
     $('[data-sub-nav]').empty();
     $('[data-sub-nav-info]').empty();
-    $(modelAbout.objPropertyNames).each(function (key, val) {
+
+    $(model.objPropertyNames).each(function (key, val) {
       $('[data-sub-nav]').append(
         "<li><a href='#'>"+ val +"</a></li>"
       );
     });
 
     $('.collapse').collapse('hide');
-    subNavRender (modelAbout);
-  });
+  }
 
-  $('[data-portfolio]').click(function (event) {
-
-    console.log("controller - model - about");
-
-    $('[data-section]').text(modelPortfolio.chapter);
-
-    $('[data-sub-nav]').empty();
-    $('[data-sub-nav-info]').empty();
-    $(modelPortfolio.objPropertyNames).each(function (key, val) {
-      $('[data-sub-nav]').append(
-        "<li><a href='#'>"+ val +"</a></li>"
-      );
-    });
-
-    $('.collapse').collapse('hide');
-    subNavRender (modelPortfolio);
-  });
-
-  function subNavRender (model) {
+  function fillSubNav (model) {
     $('[data-sub-nav]').click(function (event) {
+      var clickedSection = $(event.target).text();
 
       $('[data-sub-nav-info]').empty();
-      var clickedSection = $(event.target).text();
-      console.log(clickedSection);
+
       $('[data-sub-nav-info]').append(
         "<p>"+ model.infoForSubChapters[clickedSection] +"</p>"
       );
 
     });
   }
-
-
 
 });
 
